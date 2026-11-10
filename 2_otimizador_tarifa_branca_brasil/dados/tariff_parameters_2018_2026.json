@@ -1,0 +1,97 @@
+{
+  "metadata": {
+    "project": "TCC - Microrrede com BESS Comunitario",
+    "description": "Parametros tarifarios historicos (2018) e regulacoes reais vigentes (2026) para Austin (EUA) e CPFL Paulista (Brasil)",
+    "created_at": "2026-10-13"
+  },
+  "austin_texas": {
+    "currency": "USD",
+    "historical_2018": {
+      "utility": "Austin Energy",
+      "market_operator": "ERCOT",
+      "value_of_solar_vos_usd_kwh": 0.097,
+      "gross_metering_model": "Buy All, Sell All (100% solar creditado a taxa VoS fixa)",
+      "residential_retail_rates": {
+        "customer_charge_monthly_usd": 17.35,
+        "tiers_kwh": [
+          {"tier": 1, "max_kwh": 300, "rate_usd_kwh": 0.02801},
+          {"tier": 2, "max_kwh": 900, "rate_usd_kwh": 0.05832},
+          {"tier": 3, "max_kwh": 2000, "rate_usd_kwh": 0.07814},
+          {"tier": 4, "max_kwh": null, "rate_usd_kwh": 0.09314}
+        ],
+        "riders_usd_kwh": {
+          "power_supply_adjustment_psa": 0.02897,
+          "regulatory_charge": 0.01342,
+          "community_benefit_charge": 0.00554
+        },
+        "effective_average_rate_usd_kwh": 0.108
+      },
+      "ercot_wholesale_dam": {
+        "settlement_point": "LZ_AUSTIN",
+        "market": "Day-Ahead Market (DAM)",
+        "report_id": "NP4-180-ER / 13060",
+        "description": "Precos marginais horarios ($/MWh) aplicaveis a arbitragem e agentes agregadores"
+      }
+    },
+    "regulations_2026": {
+      "value_of_solar_vos_usd_kwh": 0.1289,
+      "residential_battery_program": {
+        "program_name": "Austin Energy Power Partner Battery Program",
+        "type": "Virtual Power Plant (VPP) / Demand Response",
+        "upfront_rebate_usd": 500.0,
+        "annual_performance_payment_usd_per_kw": 75.0,
+        "max_events_per_year": 40,
+        "event_duration_hours": "2 a 3 horas nos picos de demanda",
+        "operational_rule": "Bateria supre a carga da casa primeiro; excedente vai para a rede. Reserva minima de backup para o usuario e garantida."
+      }
+    }
+  },
+  "brasil_cpfl": {
+    "currency": "BRL",
+    "historical_2018": {
+      "utility": "CPFL Paulista",
+      "regulatory_agency": "ANEEL",
+      "resolution": "Resolucao Homologatoria ANEEL no 2.381/2018 (Vigencia a partir de 08/04/2018)",
+      "tarifa_branca_b1_residencial": {
+        "postos_horarios_dias_uteis": {
+          "ponta": {
+            "periodo": "18h00 as 20h59 (3 horas)",
+            "tarifa_aplicada_brl_kwh": 1.299,
+            "descricao": "Horario de maior pico e custo da rede"
+          },
+          "intermediario": {
+            "periodos": ["16h00 as 17h59", "21h00 as 21h59"],
+            "tarifa_aplicada_brl_kwh": 0.883,
+            "descricao": "Transicoes adjacentes a ponta"
+          },
+          "fora_de_ponta": {
+            "periodo": "22h00 as 15h59 (18 horas)",
+            "tarifa_aplicada_brl_kwh": 0.625,
+            "descricao": "Horario base mais economico"
+          }
+        },
+        "fins_de_semana_e_feriados": {
+          "posto": "Fora de Ponta",
+          "tarifa_aplicada_brl_kwh": 0.625,
+          "descricao": "24 horas faturadas em Fora de Ponta"
+        },
+        "tarifa_convencional_referencia_brl_kwh": 0.739
+      },
+      "regra_compensacao_2018": {
+        "norma": "ANEEL Resolucao Normativa no 482/2012 (SCEE)",
+        "fator_de_ajuste_entre_postos": "Relacao de Tarifas (Tarifa_Injecao / Tarifa_Consumo)",
+        "exemplo_compensacao_solar": "1 kWh injetado em Fora de Ponta (0.625) compensa 0.481 kWh na Ponta (1.299)"
+      }
+    },
+    "regulations_2026": {
+      "marco_legal": "Lei 14.300/2022 e ANEEL Resolucao Normativa no 1.000/2021",
+      "regime_conexao": "GD II (novas conexoes pos-transicao)",
+      "percentual_fio_b_ano_2026": 0.60,
+      "descricao_fio_b": "Em 2026, 60% da componente TUSD Fio B e cobrada sobre a energia injetada na rede",
+      "impacto_armazenamento_bess": {
+        "behind_the_meter": "Autoconsumo local nao passa pelo medidor da distribuidora (isencao total de encargos e Fio B)",
+        "arbitragem_horaria": "Descarga de bateria no horario de Ponta (18h-21h) abate a tarifa cheia mais cara (evita a depreciacao da injecao solar diurna)"
+      }
+    }
+  }
+}
